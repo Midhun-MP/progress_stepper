@@ -45,29 +45,38 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Progress Stepper',
-            ),
-            SizedBox(
-              height: 10,
-            ),
+//            ProgressStepper(
+//              width: 300,
+//              height: 10,
+//              padding: 2,
+//              currentStep: _counter,
+//            ),
+//            SizedBox(
+//              height: 10,
+//            ),
             ProgressStepper(
-              width: 300,
-              height: 10,
-              padding: 2,
-              currentStep: 3,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ProgressStepper(                              
               width: 200,
               height: 25,
-              padding: 0,
               color: Colors.red,
               progressColor: Colors.green,
-              currentStep: 1,
               stepCount: 3,
+              builder: (index) {
+                double widthOfStep = 200 / 3;
+                if (index == 1) {
+                  return ProgressStepWithArrow(
+                    width: widthOfStep,
+                    defaultColor: Colors.red,
+                    progressColor: Colors.green,
+                    wasCompleted: true,
+                  );
+                }
+                  return ProgressStepWithChevron(
+                    width: widthOfStep,
+                    defaultColor: Colors.red,
+                    progressColor: Colors.green,
+                    wasCompleted: false,
+                  );
+              },
             ),
           ],
         ),

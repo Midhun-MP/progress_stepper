@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:progress_stepper/src/clippers/breadCrumbClipper.dart';
+import 'package:progress_stepper/src/clippers/arrowClipper.dart';
 
-class ProgressStep extends StatelessWidget {
+class ProgressStepWithArrow extends StatelessWidget {
   final double _width;
   final Color _defaultColor;
   final Color _progressColor;
   final bool _wasCompleted;
 
-  ProgressStep(
+  ProgressStepWithArrow(
       {Key key,
-      @required double width,
-      Color defaultColor,
-      Color progressColor,
-      bool wasCompleted})
+        @required double width,
+        @required Color defaultColor,
+        @required Color progressColor,
+        @required bool wasCompleted})
       : this._width = width,
         this._defaultColor = defaultColor,
         this._progressColor = progressColor,
@@ -25,7 +25,7 @@ class ProgressStep extends StatelessWidget {
       child: Container(
           width: this._width,
           color: _wasCompleted ? this._progressColor : this._defaultColor),
-      clipper: BreadCrumbClipper(),
+      clipper: ArrowClipper(),
     );
   }
 }
