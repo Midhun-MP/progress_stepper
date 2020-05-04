@@ -14,7 +14,7 @@ Class | Description |
 
 You can use this control in two ways:
 
-###Method 1
+### Method 1
 You just need to initialise the ProgressStepper with required values, it will create a default progress step with chevron type.
 
 ```
@@ -30,7 +30,7 @@ The above code will create a stepper as shown below:
 
 ![Default Stepper](example/assets/default.png)
 
-###Method 2
+### Method 2
 You can use the builder to return your own custom step or use the provided steps as you need.
 
 ```
