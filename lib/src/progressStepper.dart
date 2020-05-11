@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:progress_stepper/progress_stepper.dart';
+
+import '../progress_stepper.dart';
 
 typedef Widget ProgressStepperBuilder(int index);
 typedef void ProgressStepperOnClick(int index);
@@ -15,8 +16,7 @@ class ProgressStepper extends StatelessWidget {
   final ProgressStepperBuilder builder;
   final ProgressStepperOnClick onClick;
 
-  ProgressStepper({
-    Key key,
+  const ProgressStepper({
     @required this.width,
     this.height = 10,
     this.padding = 2,
@@ -26,11 +26,11 @@ class ProgressStepper extends StatelessWidget {
     this.progressColor = const Color(0xFFFBB040),
     this.builder,
     this.onClick,
+    Key key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       width: width,
       height: height,
       child: Row(
@@ -38,7 +38,6 @@ class ProgressStepper extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       ),
     );
-  }
 
   List<Widget> _getProgressSteps() {
     if (builder == null) {
