@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:progress_stepper/progress_stepper.dart';
 
 typedef Widget ProgressStepperBuilder(int index);
+typedef void ProgressStepperOnClick(int index);
 
 class ProgressStepper extends StatelessWidget {
   final Color progressColor;
@@ -12,6 +13,7 @@ class ProgressStepper extends StatelessWidget {
   final int stepCount;
   final int currentStep;
   final ProgressStepperBuilder builder;
+  final ProgressStepperOnClick onClick;
 
   ProgressStepper({
     Key key,
@@ -23,6 +25,7 @@ class ProgressStepper extends StatelessWidget {
     this.color = const Color(0xFFCECECF),
     this.progressColor = const Color(0xFFFBB040),
     this.builder,
+    this.onClick,
   }) : super(key: key);
 
   @override
@@ -30,7 +33,10 @@ class ProgressStepper extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      child: Row(children: _getProgressSteps(), mainAxisAlignment: MainAxisAlignment.spaceBetween,),
+      child: Row(
+        children: _getProgressSteps(),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      ),
     );
   }
 
@@ -52,7 +58,18 @@ class ProgressStepper extends StatelessWidget {
         progressColor: progressColor,
         wasCompleted: index <= currentStep,
       );
-      steps.add(step);
+      if (onClick != null) {
+        steps.add(
+          GestureDetector(
+            child: step,
+            onTap: () {
+              onClick(index);
+            },
+          ),
+        );
+      } else {
+        steps.add(step);
+      }
     }
     return steps;
   }

@@ -50,6 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10,
               padding: 2,
               currentStep: _counter,
+              onClick: (index) {
+                setState(() {
+                  _counter = index;
+                });
+              },
             ),
             SizedBox(
               height: 10,
@@ -57,8 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ProgressStepper(
               width: 200,
               height: 25,
-              color: Colors.red,
-              progressColor: Colors.green,
               stepCount: 3,
               builder: (index) {
                 double widthOfStep = 200 / 3;
