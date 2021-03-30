@@ -7,12 +7,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) => MaterialApp(
-      title: 'Progress Stepper Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Progress Stepper'),
-    );
+        title: 'Progress Stepper Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Progress Stepper'),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -35,56 +35,72 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ProgressStepper(
-              width: 300,
-              height: 10,
-              padding: 2,
-              currentStep: _counter,
-              onClick: (index) {
-                setState(() {
-                  _counter = index;
-                });
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ProgressStepper(
-              width: 200,
-              height: 25,
-              stepCount: 3,
-              builder: (index) {
-                double widthOfStep = 200 / 3;
-                if (index == 1) {
-                  return ProgressStepWithArrow(
-                    width: widthOfStep,
-                    defaultColor: Colors.red,
-                    progressColor: Colors.green,
-                    wasCompleted: _counter >= index,
-                  );
-                }
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ProgressStepper(
+                width: 300,
+                height: 10,
+                padding: 2,
+                currentStep: _counter,
+                onClick: (index) {
+                  setState(() {
+                    _counter = index;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ProgressStepper(
+                width: 200,
+                height: 25,
+                stepCount: 3,
+                builder: (index) {
+                  double widthOfStep = 200 / 3;
+                  if (index == 1) {
+                    return ProgressStepWithArrow(
+                      width: widthOfStep,
+                      defaultColor: Colors.red,
+                      progressColor: Colors.green,
+                      wasCompleted: _counter >= index,
+                      child: Center(
+                        child: Text(
+                          index.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                   return ProgressStepWithChevron(
                     width: widthOfStep,
                     defaultColor: Colors.red,
                     progressColor: Colors.green,
                     wasCompleted: _counter >= index,
+                    child: Center(
+                      child: Text(
+                        index.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   );
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementStepper,
-        tooltip: 'Increment Stepper',
-        child: Icon(Icons.plus_one),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementStepper,
+          tooltip: 'Increment Stepper',
+          child: Icon(Icons.plus_one),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      );
 }

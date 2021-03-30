@@ -1,6 +1,6 @@
 name: progress_stepper
 description: Flutter package for showing custom progress stepper. You can use either the built in shapes (Arrow or Chevron) or can specify own shapes, using the builder.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/Midhun-MP/progress_stepper.git
 
 environment:

@@ -8,3 +8,7 @@
 ## 0.1.0 - 11 May 2020
 
 * Added onClick callback for notifying selection
+
+## 0.1.1 - 31 Mar 2021
+
+* Added option to set child widgets inside the progress stepper
