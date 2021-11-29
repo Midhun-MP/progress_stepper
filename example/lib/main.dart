@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:progress_stepper/progress_stepper.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Progress Stepper Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(title: 'Progress Stepper'),
+        home: const MyHomePage(title: 'Progress Stepper'),
       );
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -25,11 +26,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _chevronCounter = 0;
+  int _customCounter = 0;
 
-  void _incrementStepper() {
+  void _incrementChevronStepper() {
     setState(() {
-      _counter++;
+      if (_chevronCounter != 5) {
+        _chevronCounter++;
+      }
+    });
+  }
+
+  void _decrementChevronStepper() {
+    setState(() {
+      if (_chevronCounter != 0) {
+        _chevronCounter--;
+      }
+    });
+  }
+
+  void _incrementCustomStepper() {
+    setState(() {
+      if (_customCounter != 3) {
+        _customCounter++;
+      }
+    });
+  }
+
+  void _decrementCustomStepper() {
+    setState(() {
+      if (_customCounter != 0) {
+        _customCounter--;
+      }
     });
   }
 
@@ -44,34 +72,55 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ProgressStepper(
                 width: 300,
-                height: 10,
-                padding: 2,
-                currentStep: _counter,
-                onClick: (index) {
+                currentStep: _chevronCounter,
+                onClick: (int index) {
                   setState(() {
-                    _counter = index;
+                    _chevronCounter = index;
                   });
                 },
               ),
-              SizedBox(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: _decrementChevronStepper,
+                    child: const Text(
+                      '-1',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: _incrementChevronStepper,
+                    child: const Text(
+                      '+1',
+                      style: TextStyle(
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
                 height: 10,
               ),
               ProgressStepper(
                 width: 200,
                 height: 25,
                 stepCount: 3,
-                builder: (index) {
-                  double widthOfStep = 200 / 3;
+                builder: (int index) {
+                  const double widthOfStep = 200.0 / 3.0;
                   if (index == 1) {
                     return ProgressStepWithArrow(
                       width: widthOfStep,
                       defaultColor: Colors.red,
                       progressColor: Colors.green,
-                      wasCompleted: _counter >= index,
+                      wasCompleted: _customCounter >= index,
                       child: Center(
                         child: Text(
                           index.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -82,11 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: widthOfStep,
                     defaultColor: Colors.red,
                     progressColor: Colors.green,
-                    wasCompleted: _counter >= index,
+                    wasCompleted: _customCounter >= index,
                     child: Center(
                       child: Text(
                         index.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
@@ -94,13 +143,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: _decrementCustomStepper,
+                    child: const Text(
+                      '-1',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: _incrementCustomStepper,
+                    child: const Text(
+                      '+1',
+                      style: TextStyle(
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementStepper,
-          tooltip: 'Increment Stepper',
-          child: Icon(Icons.plus_one),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       );
 }

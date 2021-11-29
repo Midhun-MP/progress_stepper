@@ -6,22 +6,22 @@ This package can be used to create custom stepper.
 
 Class | Description |
 --- | --- |
-[ProgressStepper](lib/src/progressStepper.dart) | You have to initialise this class to create the custom stepper |
-[ProgressStepWithChevron](lib/src/progressStepWithChevron.dart) | Custom step with the shape of an arrow
-[ProgressStepWithArrow](lib/src/progressStepWithArrow.dart) | Custom step with the shape of chevron
+[ProgressStepper](lib/src/progress_stepper.dart) | You have to initialise this class to create the custom stepper |
+[ProgressStepWithChevron](lib/src/progress_step_with_chevron.dart) | Custom step with the shape of an arrow
+[ProgressStepWithArrow](lib/src/progress_step_with_arrow.dart) | Custom step with the shape of chevron
 
 ## Usage
 
 You can use this control in two ways:
 
 ### Method 1
-You just need to initialise the ProgressStepper with required values, it will create a default progress step with chevron type.
+
+You just need to initialise the ProgressStepper with required values, it will create a default
+progress step with chevron type.
 
 ```
 ProgressStepper(
    width: 300,
-   height: 10,
-   padding: 2,
    currentStep: 1,
 )
 ```
@@ -31,6 +31,7 @@ The above code will create a stepper as shown below:
 ![Default Stepper](example/assets/default.png)
 
 ### Method 2
+
 You can use the builder to return your own custom step or use the provided steps as you need.
 
 ```
