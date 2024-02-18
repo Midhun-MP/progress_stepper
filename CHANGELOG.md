@@ -1,3 +1,8 @@
+## 1.1.0 - 18 Feb 2024
+
+* Added new step indicator ProgressStepWithBluntChevron
+* Stepper can now specify both ends to be blunt using `bluntHead` and `bluntTail` booleans
+
 ## 1.0.0 - 30 Nov 2021
 
 * Supports null safety
