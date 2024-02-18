@@ -4,11 +4,11 @@ This package can be used to create custom stepper.
 
 ## Main Classes
 
-Class | Description |
---- | --- |
-[ProgressStepper](lib/src/progress_stepper.dart) | You have to initialise this class to create the custom stepper |
-[ProgressStepWithChevron](lib/src/progress_step_with_chevron.dart) | Custom step with the shape of an arrow
-[ProgressStepWithArrow](lib/src/progress_step_with_arrow.dart) | Custom step with the shape of chevron
+| Class                                                              | Description                                                    |
+|--------------------------------------------------------------------|----------------------------------------------------------------|
+| [ProgressStepper](lib/src/progress_stepper.dart)                   | You have to initialise this class to create the custom stepper |
+| [ProgressStepWithChevron](lib/src/progress_step_with_chevron.dart) | Custom step with the shape of an arrow                         |
+| [ProgressStepWithArrow](lib/src/progress_step_with_arrow.dart)     | Custom step with the shape of chevron                          |
 
 ## Usage
 
