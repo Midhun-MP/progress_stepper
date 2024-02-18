@@ -34,7 +34,13 @@ class _BluntStepperDemoWidgetState extends State<BluntStepperDemoWidget> {
       children: [
         ProgressStepper(
           width: 300,
+          height: 20,
+          padding: 0,
           currentStep: _bluntStepperCounter,
+          bluntHead: true,
+          bluntTail: true,
+          color: Colors.grey,
+          progressColor: Colors.deepPurple,
           onClick: (int index) {
             setState(() {
               _bluntStepperCounter = index;
