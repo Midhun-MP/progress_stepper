@@ -14,6 +14,8 @@ class ProgressStepper extends StatelessWidget {
     this.currentStep = 0,
     this.color = const Color(0xFFCECECF),
     this.progressColor = const Color(0xFFFBB040),
+    this.bluntHead = false,
+    this.bluntTail = false,
     this.builder,
     this.onClick,
     Key? key,
@@ -36,6 +38,16 @@ class ProgressStepper extends StatelessWidget {
 
   /// Number of Steps
   final int stepCount;
+
+  /// Whether to blunt the last stepper (head)
+  /// If this value is true, it will use [ProgressStepWithBluntChevron]
+  /// Default value is false
+  final bool bluntHead;
+
+  /// Whether to blunt the first stepper (tail)
+  /// If this value is true, it will use [ProgressStepWithArrow}
+  /// Default value is false
+  final bool bluntTail;
 
   /// Currently Selected Step
   /// Default value is 0
@@ -72,12 +84,32 @@ class ProgressStepper extends StatelessWidget {
     final double widthOfStep =
         (width - ((stepCount - 1) * padding)) / stepCount;
     for (int index = 1; index <= stepCount; index++) {
-      final ProgressStepWithChevron step = ProgressStepWithChevron(
-        width: widthOfStep,
-        defaultColor: color,
-        progressColor: progressColor,
-        wasCompleted: index <= currentStep,
-      );
+      Widget step;
+
+      if (index == 1 && bluntTail) {
+
+        step = ProgressStepWithArrow(
+          width: widthOfStep,
+          defaultColor: color,
+          progressColor: progressColor,
+          wasCompleted: index <= currentStep,
+        );
+      } else if (index == stepCount && bluntHead) {
+        step = ProgressStepWithBluntChevron(
+          width: widthOfStep,
+          defaultColor: color,
+          progressColor: progressColor,
+          wasCompleted: index <= currentStep,
+        );
+      } else {
+        step = ProgressStepWithChevron(
+          width: widthOfStep,
+          defaultColor: color,
+          progressColor: progressColor,
+          wasCompleted: index <= currentStep,
+        );
+      }
+
       if (onClick != null) {
         steps.add(
           GestureDetector(
