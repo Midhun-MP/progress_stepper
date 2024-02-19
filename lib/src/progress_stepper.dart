@@ -6,7 +6,7 @@ typedef ProgressStepperBuilder = Widget Function(int index);
 typedef ProgressStepperOnClick = void Function(int index);
 
 class ProgressStepper extends StatelessWidget {
-  const ProgressStepper({
+  ProgressStepper({
     required this.width,
     this.height = 10,
     this.padding = 2,
@@ -18,8 +18,8 @@ class ProgressStepper extends StatelessWidget {
     this.bluntTail = false,
     this.builder,
     this.onClick,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  }): assert(padding >= 0);
 
   /// Active Progress Color
   final Color progressColor;
