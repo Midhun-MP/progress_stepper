@@ -36,19 +36,25 @@ class _CustomStepperDemoWidgetState extends State<CustomStepperDemoWidget> {
           width: 200,
           height: 25,
           stepCount: 3,
+          padding: 5,
           builder: (int index) {
             const double widthOfStep = 200.0 / 3.0;
             if (index == 1) {
               return ProgressStepWithArrow(
                 width: widthOfStep,
+                height: 25,
                 defaultColor: Colors.red,
                 progressColor: Colors.green,
+                borderWidth: 1,
                 wasCompleted: _customCounter >= index,
-                child: Center(
-                  child: Text(
-                    index.toString(),
-                    style: const TextStyle(
-                      color: Colors.white,
+                child: SizedBox(
+                  width: widthOfStep,
+                  child: Center(
+                    child: Text(
+                      index.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -56,14 +62,20 @@ class _CustomStepperDemoWidgetState extends State<CustomStepperDemoWidget> {
             }
             return ProgressStepWithChevron(
               width: widthOfStep,
+              height: 25,
               defaultColor: Colors.red,
               progressColor: Colors.green,
+              borderWidth: 1,
               wasCompleted: _customCounter >= index,
-              child: Center(
-                child: Text(
-                  index.toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
+              child: SizedBox(
+                width: widthOfStep,
+                child: Center(
+                  child: Text(
+                    index.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
