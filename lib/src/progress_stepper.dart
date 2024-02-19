@@ -132,5 +132,20 @@ class ProgressStepper extends StatelessWidget {
       steps.add(builder!.call(index));
     }
     return steps;
+    return [Row(children: steps,)];
+  }
+
+  double _getStepWidth() => (width - ((stepCount - 1) * padding)) / stepCount;
+
+  double _getPosition(int index) {
+    if (index == 1) {
+      return 0.0;
+    }
+    return (index - 1) * _getStepWidth() + _calculatedPadding * (index - 1);
+  }
+
+  void _calculatePadding() {
+    final double widthOfStep = _getStepWidth();
+    _calculatedPadding = padding - (widthOfStep - (widthOfStep * 3.5 / 4));
   }
 }
