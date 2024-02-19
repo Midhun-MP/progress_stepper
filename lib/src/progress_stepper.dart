@@ -19,7 +19,9 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     this.builder,
     this.onClick,
     super.key,
-  }) : assert(padding >= 0);
+  }) : assert(padding >= 0) {
+    _calculatedPadding = _calculatePadding();
+  }
 
   /// Active Progress Color
   final Color progressColor;
@@ -61,7 +63,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   /// If set, user tap will trigger it and give the index of tapped step
   final ProgressStepperOnClick? onClick;
 
-  double _calculatedPadding = 0;
+  // Keeps calculated padding value
+  late final double _calculatedPadding;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -81,7 +84,6 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   }
 
   List<Widget> _createSteps() {
-    _calculatePadding();
     final List<Widget> steps = <Widget>[];
     final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
@@ -114,9 +116,9 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     return (index - 1) * _getStepWidth() + _calculatedPadding * (index - 1);
   }
 
-  void _calculatePadding() {
+  double _calculatePadding() {
     final double widthOfStep = _getStepWidth();
-    _calculatedPadding = padding - (widthOfStep - (widthOfStep * 3.5 / 4));
+    return padding - (widthOfStep - (widthOfStep * 3.5 / 4));
   }
 
   Widget _getStepPositionWidget(int index, Widget step) {
