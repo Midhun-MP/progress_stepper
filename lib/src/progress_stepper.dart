@@ -5,8 +5,8 @@ import '../progress_stepper.dart';
 typedef ProgressStepperBuilder = Widget Function(int index);
 typedef ProgressStepperOnClick = void Function(int index);
 
-class ProgressStepper extends StatelessWidget {
-  const ProgressStepper({
+class ProgressStepper extends StatelessWidget with StepFactory {
+  ProgressStepper({
     required this.width,
     this.height = 10,
     this.padding = 2,
@@ -18,8 +18,8 @@ class ProgressStepper extends StatelessWidget {
     this.bluntTail = false,
     this.builder,
     this.onClick,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  }) : assert(padding >= 0);
 
   /// Active Progress Color
   final Color progressColor;
@@ -61,12 +61,13 @@ class ProgressStepper extends StatelessWidget {
   /// If set, user tap will trigger it and give the index of tapped step
   final ProgressStepperOnClick? onClick;
 
+  double _calculatedPadding = 0;
+
   @override
   Widget build(BuildContext context) => SizedBox(
         width: width,
         height: height,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: _getProgressSteps(),
         ),
       );
@@ -80,48 +81,14 @@ class ProgressStepper extends StatelessWidget {
   }
 
   List<Widget> _createSteps() {
+    _calculatePadding();
     final List<Widget> steps = <Widget>[];
-    final double widthOfStep =
-        (width - ((stepCount - 1) * padding)) / stepCount;
+    final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
-      Widget step;
-
-      if (index == 1 && bluntTail) {
-
-        step = ProgressStepWithArrow(
-          width: widthOfStep,
-          defaultColor: color,
-          progressColor: progressColor,
-          wasCompleted: index <= currentStep,
-        );
-      } else if (index == stepCount && bluntHead) {
-        step = ProgressStepWithBluntChevron(
-          width: widthOfStep,
-          defaultColor: color,
-          progressColor: progressColor,
-          wasCompleted: index <= currentStep,
-        );
-      } else {
-        step = ProgressStepWithChevron(
-          width: widthOfStep,
-          defaultColor: color,
-          progressColor: progressColor,
-          wasCompleted: index <= currentStep,
-        );
-      }
-
-      if (onClick != null) {
-        steps.add(
-          GestureDetector(
-            child: step,
-            onTap: () {
-              onClick?.call(index);
-            },
-          ),
-        );
-      } else {
-        steps.add(step);
-      }
+      final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
+      final Widget step = createStep(
+          type, color, progressColor, index <= currentStep, widthOfStep);
+      steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
   }
@@ -131,6 +98,47 @@ class ProgressStepper extends StatelessWidget {
     for (int index = 1; index <= stepCount; index++) {
       steps.add(builder!.call(index));
     }
-    return steps;
+    return [
+      Row(
+        children: steps,
+      )
+    ];
+  }
+
+  double _getStepWidth() => (width - ((stepCount - 1) * padding)) / stepCount;
+
+  double _getPosition(int index) {
+    if (index == 1) {
+      return 0.0;
+    }
+    return (index - 1) * _getStepWidth() + _calculatedPadding * (index - 1);
+  }
+
+  void _calculatePadding() {
+    final double widthOfStep = _getStepWidth();
+    _calculatedPadding = padding - (widthOfStep - (widthOfStep * 3.5 / 4));
+  }
+
+  Widget _getStepPositionWidget(int index, Widget step) {
+    if (onClick != null) {
+      return Positioned(
+        left: _getPosition(index),
+        bottom: 0,
+        top: 0,
+        child: GestureDetector(
+          onTap: () {
+            onClick?.call(index);
+          },
+          child: step,
+        ),
+      );
+    } else {
+      return Positioned(
+        left: _getPosition(index),
+        bottom: 0,
+        top: 0,
+        child: step,
+      );
+    }
   }
 }

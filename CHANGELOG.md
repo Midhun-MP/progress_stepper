@@ -1,3 +1,8 @@
+## 2.0.0 - 19 Feb 2024
+
+* Padding logic updated
+* Basic layout logic improved
+
 ## 1.1.0 - 18 Feb 2024
 
 * Added new step indicator ProgressStepWithBluntChevron

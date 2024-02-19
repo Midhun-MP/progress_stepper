@@ -5,7 +5,8 @@ class CustomStepperDemoWidget extends StatefulWidget {
   const CustomStepperDemoWidget({super.key});
 
   @override
-  State<CustomStepperDemoWidget> createState() => _CustomStepperDemoWidgetState();
+  State<CustomStepperDemoWidget> createState() =>
+      _CustomStepperDemoWidgetState();
 }
 
 class _CustomStepperDemoWidgetState extends State<CustomStepperDemoWidget> {
