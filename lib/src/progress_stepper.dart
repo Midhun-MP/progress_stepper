@@ -108,13 +108,10 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   List<Widget> _invokeBuilder() {
     final List<Widget> steps = <Widget>[];
     for (int index = 1; index <= stepCount; index++) {
-      steps.add(builder!.call(index));
+      final Widget step = builder!.call(index);
+      steps.add(_getStepPositionWidget(index, step));
     }
-    return [
-      Row(
-        children: steps,
-      )
-    ];
+    return steps;
   }
 
   double _getStepWidth() => (width - ((stepCount - 1) * padding)) / stepCount;
