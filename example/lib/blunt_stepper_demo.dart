@@ -35,7 +35,7 @@ class _BluntStepperDemoWidgetState extends State<BluntStepperDemoWidget> {
         ProgressStepper(
           width: 300,
           height: 20,
-          padding: 0,
+          padding: 1,
           currentStep: _bluntStepperCounter,
           bluntHead: true,
           bluntTail: true,
