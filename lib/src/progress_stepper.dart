@@ -14,6 +14,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     this.currentStep = 0,
     this.color = const Color(0xFFCECECF),
     this.progressColor = const Color(0xFFFBB040),
+    this.borderColor = const Color(0x00FFFFFF),
+    this.borderWidth = 0.0,
     this.bluntHead = false,
     this.bluntTail = false,
     this.builder,
@@ -26,8 +28,16 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   /// Active Progress Color
   final Color progressColor;
 
-  /// No Progress Color
+  /// Progress Color
   final Color color;
+
+  /// Border Color
+  /// Default is black color
+  final Color borderColor;
+
+  /// Border width
+  /// Default is 0
+  final double borderWidth;
 
   /// Width of control
   final double width;
@@ -88,8 +98,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
       final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
-      final Widget step = createStep(
-          type, color, progressColor, index <= currentStep, widthOfStep);
+      final Widget step = createStep(type, color, progressColor,
+          index <= currentStep, widthOfStep, height, borderColor, borderWidth);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
@@ -98,13 +108,10 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   List<Widget> _invokeBuilder() {
     final List<Widget> steps = <Widget>[];
     for (int index = 1; index <= stepCount; index++) {
-      steps.add(builder!.call(index));
+      final Widget step = builder!.call(index);
+      steps.add(_getStepPositionWidget(index, step));
     }
-    return [
-      Row(
-        children: steps,
-      )
-    ];
+    return steps;
   }
 
   double _getStepWidth() => (width - ((stepCount - 1) * padding)) / stepCount;

@@ -9,28 +9,44 @@ enum StepType {
 }
 
 mixin StepFactory {
-  Widget createStep(StepType type, Color color, Color progressColor,
-      bool hasCompleted, double width) {
+  Widget createStep(
+      StepType type,
+      Color color,
+      Color progressColor,
+      bool hasCompleted,
+      double width,
+      double height,
+      Color borderColor,
+      double borderWidth) {
     switch (type) {
       case StepType.arrow:
         return ProgressStepWithArrow(
           width: width,
+          height: height,
           defaultColor: color,
           progressColor: progressColor,
+          borderColor: borderColor,
+          borderWidth: borderWidth,
           wasCompleted: hasCompleted,
         );
       case StepType.chevron:
         return ProgressStepWithChevron(
           width: width,
+          height: height,
           defaultColor: color,
           progressColor: progressColor,
+          borderColor: borderColor,
+          borderWidth: borderWidth,
           wasCompleted: hasCompleted,
         );
       case StepType.chevronBlunt:
         return ProgressStepWithBluntChevron(
           width: width,
+          height: height,
           defaultColor: color,
           progressColor: progressColor,
+          borderColor: borderColor,
+          borderWidth: borderWidth,
           wasCompleted: hasCompleted,
         );
     }
