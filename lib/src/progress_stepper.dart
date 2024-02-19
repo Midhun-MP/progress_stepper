@@ -61,6 +61,8 @@ class ProgressStepper extends StatelessWidget {
   /// If set, user tap will trigger it and give the index of tapped step
   final ProgressStepperOnClick? onClick;
 
+  double _calculatedPadding = 0;
+
   @override
   Widget build(BuildContext context) => SizedBox(
         width: width,
