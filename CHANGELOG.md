@@ -1,3 +1,9 @@
+## 2.1.0 - 19 Feb 2024
+
+* Support for showing border with:
+  * Border Color
+  * Border Width
+
 ## 2.0.0 - 19 Feb 2024
 
 * Padding logic updated

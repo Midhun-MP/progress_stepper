@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ChevronBluntClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
+mixin ChevronBlunt {
+  Path getChevronBluntPath(Size size) {
     final Path path = Path();
     path.moveTo(0, 0);
     path.lineTo(size.width, 0.0);
@@ -12,7 +11,4 @@ class ChevronBluntClipper extends CustomClipper<Path> {
     path.close();
     return path;
   }
-
-  @override
-  bool shouldReclip(ChevronBluntClipper oldClipper) => this != oldClipper;
 }
