@@ -25,11 +25,11 @@ class ProgressStepWithBluntChevron extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ClipPath(
-    clipper: ChevronBluntClipper(),
-    child: Container(
-      width: _width,
-      color: _wasCompleted ? _progressColor : _defaultColor,
-      child: _child ?? Container(),
-    ),
-  );
+        clipper: ChevronBluntClipper(),
+        child: Container(
+          width: _width,
+          color: _wasCompleted ? _progressColor : _defaultColor,
+          child: _child ?? Container(),
+        ),
+      );
 }

@@ -5,8 +5,7 @@ class BluntStepperDemoWidget extends StatefulWidget {
   const BluntStepperDemoWidget({super.key});
 
   @override
-  State<BluntStepperDemoWidget> createState() =>
-      _BluntStepperDemoWidgetState();
+  State<BluntStepperDemoWidget> createState() => _BluntStepperDemoWidgetState();
 }
 
 class _BluntStepperDemoWidgetState extends State<BluntStepperDemoWidget> {

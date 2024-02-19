@@ -19,7 +19,7 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     this.builder,
     this.onClick,
     super.key,
-  }): assert(padding >= 0);
+  }) : assert(padding >= 0);
 
   /// Active Progress Color
   final Color progressColor;
@@ -86,7 +86,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
       final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
-      final Widget step = createStep(type, color, progressColor, index <= currentStep, widthOfStep);
+      final Widget step = createStep(
+          type, color, progressColor, index <= currentStep, widthOfStep);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
@@ -97,7 +98,11 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     for (int index = 1; index <= stepCount; index++) {
       steps.add(builder!.call(index));
     }
-    return [Row(children: steps,)];
+    return [
+      Row(
+        children: steps,
+      )
+    ];
   }
 
   double _getStepWidth() => (width - ((stepCount - 1) * padding)) / stepCount;
@@ -116,16 +121,16 @@ class ProgressStepper extends StatelessWidget with StepFactory {
 
   Widget _getStepPositionWidget(int index, Widget step) {
     if (onClick != null) {
-        return Positioned(
-          left: _getPosition(index),
-          bottom: 0,
-          top: 0,
-          child: GestureDetector(
-            onTap: () {
-              onClick?.call(index);
-            },
-            child: step,
-          ),
+      return Positioned(
+        left: _getPosition(index),
+        bottom: 0,
+        top: 0,
+        child: GestureDetector(
+          onTap: () {
+            onClick?.call(index);
+          },
+          child: step,
+        ),
       );
     } else {
       return Positioned(

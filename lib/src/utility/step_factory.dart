@@ -9,8 +9,8 @@ enum StepType {
 }
 
 mixin StepFactory {
-  Widget createStep(StepType type, Color color, Color progressColor, bool hasCompleted,
-      double width) {
+  Widget createStep(StepType type, Color color, Color progressColor,
+      bool hasCompleted, double width) {
     switch (type) {
       case StepType.arrow:
         return ProgressStepWithArrow(
@@ -36,7 +36,8 @@ mixin StepFactory {
     }
   }
 
-  StepType getStepType(int index, bool bluntTail, bool bluntHead, int stepCount) {
+  StepType getStepType(
+      int index, bool bluntTail, bool bluntHead, int stepCount) {
     if (index == 1 && bluntTail) {
       return StepType.arrow;
     } else if (index == stepCount && bluntHead) {
