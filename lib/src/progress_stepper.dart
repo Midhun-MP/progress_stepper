@@ -159,4 +159,27 @@ class ProgressStepper extends StatelessWidget {
     final double widthOfStep = _getStepWidth();
     _calculatedPadding = padding - (widthOfStep - (widthOfStep * 3.5 / 4));
   }
+
+  Widget _getStepPositionWidget(int index, Widget step) {
+    if (onClick != null) {
+        return Positioned(
+          left: _getPosition(index),
+          bottom: 0,
+          top: 0,
+          child: GestureDetector(
+            onTap: () {
+              onClick?.call(index);
+            },
+            child: step,
+          ),
+      );
+    } else {
+      return Positioned(
+        left: _getPosition(index),
+        bottom: 0,
+        top: 0,
+        child: step,
+      );
+    }
+  }
 }
