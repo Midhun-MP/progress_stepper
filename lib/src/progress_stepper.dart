@@ -81,12 +81,12 @@ class ProgressStepper extends StatelessWidget {
   }
 
   List<Widget> _createSteps() {
+    _calculatePadding();
     final List<Widget> steps = <Widget>[];
-    final double widthOfStep =
-        (width - ((stepCount - 1) * padding)) / stepCount;
+    final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
       Widget step;
-
+      print(widthOfStep - (widthOfStep * 3.5 / 4));
       if (index == 1 && bluntTail) {
 
         step = ProgressStepWithArrow(
@@ -113,15 +113,26 @@ class ProgressStepper extends StatelessWidget {
 
       if (onClick != null) {
         steps.add(
-          GestureDetector(
-            child: step,
-            onTap: () {
-              onClick?.call(index);
-            },
+          Positioned(
+            left: _getPosition(index),
+            bottom: 0,
+            top: 0,
+            child: GestureDetector(
+              onTap: () {
+                onClick?.call(index);
+              },
+              child: step,
+            ),
           ),
         );
       } else {
-        steps.add(step);
+        steps.add(Positioned(
+          left: _getPosition(index),
+          bottom: 0,
+          top: 0,
+        child: step,
+        ),
+        );
       }
     }
     return steps;
@@ -132,7 +143,6 @@ class ProgressStepper extends StatelessWidget {
     for (int index = 1; index <= stepCount; index++) {
       steps.add(builder!.call(index));
     }
-    return steps;
     return [Row(children: steps,)];
   }
 
