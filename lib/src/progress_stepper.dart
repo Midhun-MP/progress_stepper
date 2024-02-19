@@ -67,8 +67,7 @@ class ProgressStepper extends StatelessWidget {
   Widget build(BuildContext context) => SizedBox(
         width: width,
         height: height,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: _getProgressSteps(),
         ),
       );
