@@ -34,13 +34,12 @@ class ProgressStepWithChevron extends StatelessWidget with Chevron {
 
   @override
   Widget build(BuildContext context) => CustomPaint(
-    painter:
-    StepShapePainter(
-      path: getChevronPath(Size(_width, _height)),
-      fillColor: _wasCompleted ? _progressColor : _defaultColor,
-      borderColor: _borderColor,
-      borderWidth: _borderWidth,
-    ),
-    child: _child,
-  );
+        painter: StepShapePainter(
+          path: getChevronPath(Size(_width, _height)),
+          fillColor: _wasCompleted ? _progressColor : _defaultColor,
+          borderColor: _borderColor,
+          borderWidth: _borderWidth,
+        ),
+        child: _child,
+      );
 }

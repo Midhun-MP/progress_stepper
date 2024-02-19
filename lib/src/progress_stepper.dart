@@ -98,8 +98,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
       final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
-      final Widget step = createStep(
-          type, color, progressColor, index <= currentStep, widthOfStep, height, borderColor, borderWidth);
+      final Widget step = createStep(type, color, progressColor,
+          index <= currentStep, widthOfStep, height, borderColor, borderWidth);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;

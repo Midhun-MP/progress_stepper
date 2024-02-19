@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class StepShapePainter extends CustomPainter {
-
   StepShapePainter({
     required this.path,
     required this.fillColor,
@@ -16,9 +15,7 @@ class StepShapePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-
-    final Paint paint = Paint()
-      ..color = fillColor;
+    final Paint paint = Paint()..color = fillColor;
 
     canvas.drawPath(path, paint);
 
