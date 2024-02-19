@@ -5,7 +5,7 @@ import '../progress_stepper.dart';
 typedef ProgressStepperBuilder = Widget Function(int index);
 typedef ProgressStepperOnClick = void Function(int index);
 
-class ProgressStepper extends StatelessWidget {
+class ProgressStepper extends StatelessWidget with StepFactory {
   ProgressStepper({
     required this.width,
     this.height = 10,
@@ -85,55 +85,9 @@ class ProgressStepper extends StatelessWidget {
     final List<Widget> steps = <Widget>[];
     final double widthOfStep = _getStepWidth();
     for (int index = 1; index <= stepCount; index++) {
-      Widget step;
-      print(widthOfStep - (widthOfStep * 3.5 / 4));
-      if (index == 1 && bluntTail) {
-
-        step = ProgressStepWithArrow(
-          width: widthOfStep,
-          defaultColor: color,
-          progressColor: progressColor,
-          wasCompleted: index <= currentStep,
-        );
-      } else if (index == stepCount && bluntHead) {
-        step = ProgressStepWithBluntChevron(
-          width: widthOfStep,
-          defaultColor: color,
-          progressColor: progressColor,
-          wasCompleted: index <= currentStep,
-        );
-      } else {
-        step = ProgressStepWithChevron(
-          width: widthOfStep,
-          defaultColor: color,
-          progressColor: progressColor,
-          wasCompleted: index <= currentStep,
-        );
-      }
-
-      if (onClick != null) {
-        steps.add(
-          Positioned(
-            left: _getPosition(index),
-            bottom: 0,
-            top: 0,
-            child: GestureDetector(
-              onTap: () {
-                onClick?.call(index);
-              },
-              child: step,
-            ),
-          ),
-        );
-      } else {
-        steps.add(Positioned(
-          left: _getPosition(index),
-          bottom: 0,
-          top: 0,
-        child: step,
-        ),
-        );
-      }
+      final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
+      final Widget step = createStep(type, color, progressColor, index <= currentStep, widthOfStep);
+      steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
   }
