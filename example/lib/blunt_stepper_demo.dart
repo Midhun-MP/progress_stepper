@@ -48,7 +48,9 @@ class _BluntStepperDemoWidgetState extends State<BluntStepperDemoWidget> {
               fontWeight: FontWeight.w500,
             ),
             selectedTextStyle: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
             onClick: (int index) {
               setState(() {
                 _bluntStepperCounter = index;

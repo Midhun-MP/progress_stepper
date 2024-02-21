@@ -39,10 +39,21 @@ The above code will create a stepper as shown below:
 ProgressStepper(
    width: 300,
    height: 20,
+   padding: 1,
+   currentStep: 1,
    bluntHead: true,
    bluntTail: true,
    color: Colors.grey,
    progressColor: Colors.deepPurple,
+   labels: const <String>['A', 'B', 'C', 'D', 'E'],
+   defaultTextStyle: const TextStyle(
+      color: Colors.purple,
+      fontWeight: FontWeight.w500,
+   ),
+   selectedTextStyle: const TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+   ),         
 )
 ```
 Which will result in:
@@ -54,27 +65,45 @@ Which will result in:
 You can use the builder to return your own custom step or use the provided steps as you need.
 
 ```@dart
-ProgressStepper(                              
+ProgressStepper(
    width: 200,
    height: 25,
-   color: Colors.red,
-   progressColor: Colors.green,
    stepCount: 3,
-   builder: (index) {
-      double widthOfStep = 200 / 3;
+   builder: (int index, double widthOfStep) {
       if (index == 1) {
          return ProgressStepWithArrow(
             width: widthOfStep,
+            height: 25,
             defaultColor: Colors.red,
             progressColor: Colors.green,
+            borderWidth: 1,
             wasCompleted: true,
+            child: Center(
+               child: Text(
+                  index.toString(),
+                  style: const TextStyle(
+                     color: Colors.white,
+                  ),
+               ),
+            ),
          );
       }
       return ProgressStepWithChevron(
          width: widthOfStep,
+         height: 25,
          defaultColor: Colors.red,
          progressColor: Colors.green,
+         borderWidth: 1,
          wasCompleted: false,
+         child: Center(
+            child: Text(
+               index.toString(),
+               textAlign: TextAlign.center,
+               style: const TextStyle(
+                  color: Colors.white,
+               ),
+            ),
+         ),
       );
    },
 )
