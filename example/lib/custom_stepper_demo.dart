@@ -46,14 +46,11 @@ class _CustomStepperDemoWidgetState extends State<CustomStepperDemoWidget> {
                 progressColor: Colors.green,
                 borderWidth: 1,
                 wasCompleted: _customCounter >= index,
-                child: SizedBox(
-                  width: widthOfStep,
-                  child: Center(
-                    child: Text(
-                      index.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+                child: Center(
+                  child: Text(
+                    index.toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -66,15 +63,12 @@ class _CustomStepperDemoWidgetState extends State<CustomStepperDemoWidget> {
               progressColor: Colors.green,
               borderWidth: 1,
               wasCompleted: _customCounter >= index,
-              child: SizedBox(
-                width: widthOfStep,
-                child: Center(
-                  child: Text(
-                    index.toString(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+              child: Center(
+                child: Text(
+                  index.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
                   ),
                 ),
               ),
