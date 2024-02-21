@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../progress_stepper.dart';
 
-typedef ProgressStepperBuilder = Widget Function(int index);
+typedef ProgressStepperBuilder = Widget Function(int index, double width);
 typedef ProgressStepperOnClick = void Function(int index);
 
 class ProgressStepper extends StatelessWidget with StepFactory {
@@ -19,10 +19,15 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     this.bluntHead = false,
     this.bluntTail = false,
     this.builder,
+    this.labels,
+    this.defaultTextStyle,
+    this.selectedTextStyle,
     this.onClick,
     super.key,
-  }) : assert(padding >= 0) {
+  })  : assert(padding >= 0),
+        assert(labels == null || (labels.length == stepCount)) {
     _calculatedPadding = _calculatePadding();
+    _calculatedStepWidth = _getStepWidth();
   }
 
   /// Active Progress Color
@@ -73,6 +78,19 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   /// If set, user tap will trigger it and give the index of tapped step
   final ProgressStepperOnClick? onClick;
 
+  /// Label to display on each step
+  /// Step Count and Label count should match
+  final List<String>? labels;
+
+  /// Text style to show to the labels in default state
+  final TextStyle? defaultTextStyle;
+
+  /// Text style to show to the labels in selected state
+  final TextStyle? selectedTextStyle;
+
+  // Keeps calculated step width
+  late final double _calculatedStepWidth;
+
   // Keeps calculated padding value
   late final double _calculatedPadding;
 
@@ -95,11 +113,20 @@ class ProgressStepper extends StatelessWidget with StepFactory {
 
   List<Widget> _createSteps() {
     final List<Widget> steps = <Widget>[];
-    final double widthOfStep = _getStepWidth();
+    final double widthOfStep = _calculatedStepWidth;
     for (int index = 1; index <= stepCount; index++) {
       final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
-      final Widget step = createStep(type, color, progressColor,
-          index <= currentStep, widthOfStep, height, borderColor, borderWidth);
+      final Widget? child = _getLabelWidget(index - 1, index <= currentStep);
+      final Widget step = createStep(
+          type,
+          color,
+          progressColor,
+          index <= currentStep,
+          widthOfStep,
+          height,
+          borderColor,
+          borderWidth,
+          child);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
@@ -108,23 +135,25 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   List<Widget> _invokeBuilder() {
     final List<Widget> steps = <Widget>[];
     for (int index = 1; index <= stepCount; index++) {
-      final Widget step = builder!.call(index);
+      final Widget step = builder!.call(index, _calculatedStepWidth);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
   }
 
-  double _getStepWidth() => (width - ((stepCount - 1) * padding)) / stepCount;
+  double _getStepWidth() =>
+      (width - ((stepCount - 1) * _calculatedPadding)) / stepCount;
 
   double _getPosition(int index) {
     if (index == 1) {
       return 0.0;
     }
-    return (index - 1) * _getStepWidth() + _calculatedPadding * (index - 1);
+    return ((index - 1) * _calculatedStepWidth * 3.5 / 4) +
+        (padding * (index - 1));
   }
 
   double _calculatePadding() {
-    final double widthOfStep = _getStepWidth();
+    final double widthOfStep = width / stepCount;
     return padding - (widthOfStep - (widthOfStep * 3.5 / 4));
   }
 
@@ -134,11 +163,12 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         left: _getPosition(index),
         bottom: 0,
         top: 0,
+        width: _calculatedStepWidth,
         child: GestureDetector(
           onTap: () {
             onClick?.call(index);
           },
-          child: step,
+          child: SizedBox(width: _calculatedStepWidth, child: step),
         ),
       );
     } else {
@@ -146,8 +176,23 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         left: _getPosition(index),
         bottom: 0,
         top: 0,
-        child: step,
+        width: _calculatedStepWidth,
+        child: SizedBox(width: _calculatedStepWidth, child: step),
       );
     }
+  }
+
+  Widget? _getLabelWidget(int index, bool isSelected) {
+    if (labels == null) {
+      return null;
+    }
+    final String label = labels![index];
+    final Widget widget = Center(
+      child: Text(
+        label,
+        style: isSelected ? selectedTextStyle : defaultTextStyle,
+      ),
+    );
+    return widget;
   }
 }

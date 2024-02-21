@@ -1,8 +1,14 @@
+## 3.0.0 - 21 Feb 2024
+
+* Added support for labels by default
+* Fixed width calculation issue in custom builder
+* Fixed alignment issues in custom builder
+
 ## 2.1.0 - 19 Feb 2024
 
 * Support for showing border with:
-  * Border Color
-  * Border Width
+    * Border Color
+    * Border Width
 
 ## 2.0.0 - 19 Feb 2024
 
