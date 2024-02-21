@@ -23,6 +23,7 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     super.key,
   }) : assert(padding >= 0) {
     _calculatedPadding = _calculatePadding();
+    _calculatedStepWidth = _getStepWidth();
   }
 
   /// Active Progress Color
@@ -73,6 +74,9 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   /// If set, user tap will trigger it and give the index of tapped step
   final ProgressStepperOnClick? onClick;
 
+  // Keeps calculated step width
+  late final double _calculatedStepWidth;
+
   // Keeps calculated padding value
   late final double _calculatedPadding;
 
@@ -95,7 +99,7 @@ class ProgressStepper extends StatelessWidget with StepFactory {
 
   List<Widget> _createSteps() {
     final List<Widget> steps = <Widget>[];
-    final double widthOfStep = _getStepWidth();
+    final double widthOfStep = _calculatedStepWidth;
     for (int index = 1; index <= stepCount; index++) {
       final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
       final Widget step = createStep(type, color, progressColor,
@@ -108,7 +112,7 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   List<Widget> _invokeBuilder() {
     final List<Widget> steps = <Widget>[];
     for (int index = 1; index <= stepCount; index++) {
-      final Widget step = builder!.call(index, _getStepWidth());
+      final Widget step = builder!.call(index, _calculatedStepWidth);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
@@ -121,7 +125,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     if (index == 1) {
       return 0.0;
     }
-    return ((index - 1) * _getStepWidth() * 3.5 / 4) + (padding * (index - 1));
+    return ((index - 1) * _calculatedStepWidth * 3.5 / 4) +
+        (padding * (index - 1));
   }
 
   double _calculatePadding() {
@@ -135,12 +140,12 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         left: _getPosition(index),
         bottom: 0,
         top: 0,
-        width: _getStepWidth(),
+        width: _calculatedStepWidth,
         child: GestureDetector(
           onTap: () {
             onClick?.call(index);
           },
-          child: SizedBox(width: _getStepWidth(), child: step),
+          child: SizedBox(width: _calculatedStepWidth, child: step),
         ),
       );
     } else {
@@ -148,8 +153,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         left: _getPosition(index),
         bottom: 0,
         top: 0,
-        width: _getStepWidth(),
-        child: SizedBox(width: _getStepWidth(), child: step),
+        width: _calculatedStepWidth,
+        child: SizedBox(width: _calculatedStepWidth, child: step),
       );
     }
   }
