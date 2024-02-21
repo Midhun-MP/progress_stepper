@@ -124,7 +124,7 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   }
 
   double _calculatePadding() {
-    final double widthOfStep = _getStepWidth();
+    final double widthOfStep = width / stepCount;
     return padding - (widthOfStep - (widthOfStep * 3.5 / 4));
   }
 
