@@ -134,11 +134,12 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         left: _getPosition(index),
         bottom: 0,
         top: 0,
+        width: _getStepWidth(),
         child: GestureDetector(
           onTap: () {
             onClick?.call(index);
           },
-          child: step,
+          child: SizedBox(width: _getStepWidth(), child: step),
         ),
       );
     } else {
@@ -146,7 +147,8 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         left: _getPosition(index),
         bottom: 0,
         top: 0,
-        child: step,
+        width: _getStepWidth(),
+        child: SizedBox(width: _getStepWidth(), child: step),
       );
     }
   }
