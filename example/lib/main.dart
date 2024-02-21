@@ -1,8 +1,7 @@
-import 'package:example/chevron_stepper_demo.dart';
 import 'package:flutter/material.dart';
-import 'package:progress_stepper/progress_stepper.dart';
 
 import 'blunt_stepper_demo.dart';
+import 'chevron_stepper_demo.dart';
 import 'custom_stepper_demo.dart';
 
 void main() => runApp(const MyApp());

@@ -31,20 +31,32 @@ class _BluntStepperDemoWidgetState extends State<BluntStepperDemoWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProgressStepper(
-          width: 300,
-          height: 20,
-          padding: 1,
-          currentStep: _bluntStepperCounter,
-          bluntHead: true,
-          bluntTail: true,
-          color: Colors.grey,
-          progressColor: Colors.deepPurple,
-          onClick: (int index) {
-            setState(() {
-              _bluntStepperCounter = index;
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ProgressStepper(
+            width: MediaQuery.of(context).size.width,
+            height: 20,
+            padding: 1,
+            currentStep: _bluntStepperCounter,
+            bluntHead: true,
+            bluntTail: true,
+            color: Colors.grey,
+            progressColor: Colors.deepPurple,
+            labels: const <String>['A', 'B', 'C', 'D', 'E'],
+            defaultTextStyle: const TextStyle(
+              color: Colors.purple,
+              fontWeight: FontWeight.w500,
+            ),
+            selectedTextStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            onClick: (int index) {
+              setState(() {
+                _bluntStepperCounter = index;
+              });
+            },
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
