@@ -36,9 +36,8 @@ class _CustomStepperDemoWidgetState extends State<CustomStepperDemoWidget> {
           width: 200,
           height: 25,
           stepCount: 3,
-          padding: 5,
-          builder: (int index) {
-            const double widthOfStep = 200.0 / 3.0;
+          padding: 2,
+          builder: (int index, double widthOfStep) {
             if (index == 1) {
               return ProgressStepWithArrow(
                 width: widthOfStep,
