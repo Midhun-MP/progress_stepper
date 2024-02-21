@@ -19,9 +19,13 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     this.bluntHead = false,
     this.bluntTail = false,
     this.builder,
+    this.labels,
+    this.defaultTextStyle,
+    this.selectedTextStyle,
     this.onClick,
     super.key,
-  }) : assert(padding >= 0) {
+  })  : assert(padding >= 0),
+        assert(labels == null || (labels.length == stepCount)) {
     _calculatedPadding = _calculatePadding();
     _calculatedStepWidth = _getStepWidth();
   }
@@ -74,6 +78,16 @@ class ProgressStepper extends StatelessWidget with StepFactory {
   /// If set, user tap will trigger it and give the index of tapped step
   final ProgressStepperOnClick? onClick;
 
+  /// Label to display on each step
+  /// Step Count and Label count should match
+  final List<String>? labels;
+
+  /// Text style to show to the labels in default state
+  final TextStyle? defaultTextStyle;
+
+  /// Text style to show to the labels in selected state
+  final TextStyle? selectedTextStyle;
+
   // Keeps calculated step width
   late final double _calculatedStepWidth;
 
@@ -102,8 +116,17 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     final double widthOfStep = _calculatedStepWidth;
     for (int index = 1; index <= stepCount; index++) {
       final StepType type = getStepType(index, bluntTail, bluntHead, stepCount);
-      final Widget step = createStep(type, color, progressColor,
-          index <= currentStep, widthOfStep, height, borderColor, borderWidth);
+      final Widget? child = _getLabelWidget(index - 1, index <= currentStep);
+      final Widget step = createStep(
+          type,
+          color,
+          progressColor,
+          index <= currentStep,
+          widthOfStep,
+          height,
+          borderColor,
+          borderWidth,
+          child);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
@@ -157,5 +180,19 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         child: SizedBox(width: _calculatedStepWidth, child: step),
       );
     }
+  }
+
+  Widget? _getLabelWidget(int index, bool isSelected) {
+    if (labels == null) {
+      return null;
+    }
+    final String label = labels![index];
+    final Widget widget = Center(
+      child: Text(
+        label,
+        style: isSelected ? selectedTextStyle : defaultTextStyle,
+      ),
+    );
+    return widget;
   }
 }
