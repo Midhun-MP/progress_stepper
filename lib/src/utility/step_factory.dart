@@ -17,7 +17,8 @@ mixin StepFactory {
       double width,
       double height,
       Color borderColor,
-      double borderWidth) {
+      double borderWidth,
+      Widget? child) {
     switch (type) {
       case StepType.arrow:
         return ProgressStepWithArrow(
@@ -28,6 +29,7 @@ mixin StepFactory {
           borderColor: borderColor,
           borderWidth: borderWidth,
           wasCompleted: hasCompleted,
+          child: child,
         );
       case StepType.chevron:
         return ProgressStepWithChevron(
@@ -38,6 +40,7 @@ mixin StepFactory {
           borderColor: borderColor,
           borderWidth: borderWidth,
           wasCompleted: hasCompleted,
+          child: child,
         );
       case StepType.chevronBlunt:
         return ProgressStepWithBluntChevron(
@@ -48,6 +51,7 @@ mixin StepFactory {
           borderColor: borderColor,
           borderWidth: borderWidth,
           wasCompleted: hasCompleted,
+          child: child,
         );
     }
   }
