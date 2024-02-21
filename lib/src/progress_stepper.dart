@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../progress_stepper.dart';
 
-typedef ProgressStepperBuilder = Widget Function(int index);
+typedef ProgressStepperBuilder = Widget Function(int index, double width);
 typedef ProgressStepperOnClick = void Function(int index);
 
 class ProgressStepper extends StatelessWidget with StepFactory {
