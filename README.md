@@ -69,7 +69,7 @@ ProgressStepper(
    width: 200,
    height: 25,
    stepCount: 3,
-   builder: (int index, double widthOfStep) {
+   builder: (BuildContext cbc, int index, double widthOfStep) {
       if (index == 1) {
          return ProgressStepWithArrow(
             width: widthOfStep,
