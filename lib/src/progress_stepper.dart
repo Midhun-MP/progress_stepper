@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../progress_stepper.dart';
 
-typedef ProgressStepperBuilder = Widget Function(int index, double width);
+typedef ProgressStepperBuilder = Widget Function(
+    BuildContext context, int index, double width);
 typedef ProgressStepperOnClick = void Function(int index);
 
 class ProgressStepper extends StatelessWidget with StepFactory {
@@ -99,15 +100,15 @@ class ProgressStepper extends StatelessWidget with StepFactory {
         width: width,
         height: height,
         child: Stack(
-          children: _getProgressSteps(),
+          children: _getProgressSteps(context),
         ),
       );
 
-  List<Widget> _getProgressSteps() {
+  List<Widget> _getProgressSteps(BuildContext context) {
     if (builder == null) {
       return _createSteps();
     } else {
-      return _invokeBuilder();
+      return _invokeBuilder(context);
     }
   }
 
@@ -132,10 +133,10 @@ class ProgressStepper extends StatelessWidget with StepFactory {
     return steps;
   }
 
-  List<Widget> _invokeBuilder() {
+  List<Widget> _invokeBuilder(BuildContext context) {
     final List<Widget> steps = <Widget>[];
     for (int index = 1; index <= stepCount; index++) {
-      final Widget step = builder!.call(index, _calculatedStepWidth);
+      final Widget step = builder!.call(context, index, _calculatedStepWidth);
       steps.add(_getStepPositionWidget(index, step));
     }
     return steps;
