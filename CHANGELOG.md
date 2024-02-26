@@ -1,3 +1,7 @@
+## 3.1.0 - 26 Feb 2024
+
+* Builder now provides context
+
 ## 3.0.0 - 21 Feb 2024
 
 * Added support for labels by default
